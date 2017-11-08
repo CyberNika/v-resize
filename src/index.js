@@ -55,12 +55,11 @@ class Resize {
     this.mousedown = this.mousedown.bind(this)
     this.mousemove = throttle(this.mousemove, 1000 / 60).bind(this)
     this.mouseup = this.mouseup.bind(this)
+    this.mouseleave = this.mouseleave.bind(this)
   }
 
   init () {
-    document.body.addEventListener('mousedown', this.mousedown)
     document.body.addEventListener('mousemove', this.mousemove)
-    document.body.addEventListener('mouseup', this.mouseup)
 
     this.target[ns] = {
       mousedown: this.mousedown,
@@ -126,6 +125,13 @@ class Resize {
     this.state.isResizing = false
   }
 
+  mouseleave () {
+    console.log(111)
+    this.state.isResizable = false
+    this.state.isDragged = false
+    this.state.isResizing = false
+  }
+
   checkHit (cursorPos, targetPos) {
     const isInside = (
       cursorPos.y >= targetPos.top &&
@@ -162,8 +168,12 @@ class Resize {
   // watchers
   handleResizableChange (value) {
     if (value) {
+      document.body.addEventListener('mouseup', this.mouseup)
+      document.body.addEventListener('mousedown', this.mousedown)
       this.target.classList.add(this.options.resizableClass)
     } else {
+      document.body.removeEventListener('mousedown', this.mousedown)
+      document.body.removeEventListener('mouseup', this.mouseup)
       this.target.classList.remove(this.options.resizableClass)
     }
   }
@@ -185,9 +195,11 @@ class Resize {
 
   handleDraggedChange (value) {
     if (value) {
+      document.body.addEventListener('mouseleave', this.mouseleave)
       document.body.style['user-select'] = 'none'
       this.target.classList.add(this.options.draggedClass)
     } else {
+      document.body.removeEventListener('mouseleave', this.mouseleave)
       document.body.style['user-select'] = ''
       this.target.classList.remove(this.options.draggedClass)
     }
