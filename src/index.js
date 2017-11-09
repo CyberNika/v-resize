@@ -5,7 +5,7 @@ const defaultOptions = {
   resizableClass: 'vrz-resizable',
   draggedClass: 'vrz-dragged',
   resizingClass: 'vrz-resizing',
-  directions: ['top', 'bottom', 'left', 'right'],
+  directions: ['bottom', 'right'],
   zoneSize: 4,
 }
 
@@ -126,7 +126,6 @@ class Resize {
   }
 
   mouseleave () {
-    console.log(111)
     this.state.isResizable = false
     this.state.isDragged = false
     this.state.isResizing = false
