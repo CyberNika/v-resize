@@ -1,9 +1,10 @@
 {
   "name": "v-resize",
   "description": "resize directive for Vue 2.0",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "author": "XBT1 <xbtop1@gmail.com>",
   "files": [
+    "src",
     "dist"
   ],
   "keywords": [
@@ -15,18 +16,18 @@
   "license": "MIT",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --content-base examples/ --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+    "build": "npm run build:package & npm run build:example",
+    "build:package": "node build/index.js",
+    "build:example": "rm -fr sites && cross-env NODE_ENV=production webpack --progress --hide-modules && cp examples/index.html sites",
+    "ghpages": "npm run build:example && node build/gh-pages.js",
+    "pb": "npm run build:package && npm publish"
   },
   "dependencies": {
     "lodash.throttle": "^4.1.1",
     "vue": "^2.4.4"
   },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not ie <= 8"
-  ],
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.0",
@@ -34,6 +35,8 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
+    "fs-extra": "^4.0.2",
+    "gh-pages": "^1.0.0",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",
@@ -46,5 +49,14 @@
   "bugs": {
     "url": "https://github.com/XBT1/v-resize/issues"
   },
-  "homepage": "https://github.com/XBT1/v-resize"
+  "homepage": "https://github.com/XBT1/v-resize",
+  "engines": {
+    "node": ">= 4.0.0",
+    "npm": ">= 3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }
