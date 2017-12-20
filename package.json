@@ -1,8 +1,9 @@
 {
   "name": "v-resize",
   "description": "resize directive for Vue 2.0",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "XBT1 <xbtop1@gmail.com>",
+  "main": "dist/index.js",
   "files": [
     "src",
     "dist"
